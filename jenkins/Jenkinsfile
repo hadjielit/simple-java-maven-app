@@ -1,6 +1,16 @@
 pipeline {
     agent any
+    tools {
+        // Configure Maven in Jenkins: Manage Jenkins > Global Tool Configuration
+        maven 'M3'  // 'M3' is the name of your Maven installation in Jenkins
+    }
     stages {
+        stage('Check Environment') {
+            steps {
+                sh 'java -version'
+                sh 'mvn --version || echo "Maven not found"'
+            }
+        }
         stage('Build') {
             steps {
                 sh 'mvn package '
